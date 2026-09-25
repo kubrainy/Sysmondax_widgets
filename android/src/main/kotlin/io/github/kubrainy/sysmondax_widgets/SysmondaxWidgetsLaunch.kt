@@ -4,6 +4,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import es.antonborri.home_widget.HomeWidgetLaunchIntent
 
 /**
  * Bu plugin, kendisini kullanan uygulamanın launcher (ana) Activity'sinin
@@ -19,7 +20,11 @@ internal object SysmondaxWidgetsLaunch {
         val launchIntent =
             context.packageManager.getLaunchIntentForPackage(context.packageName) ?: Intent()
 
-        launchIntent.action = Intent.ACTION_VIEW
+        // `home_widget`'ın `initiallyLaunchedFromHomeWidget()` / `widgetClicked` akışı,
+        // gelen Intent'in action'ının TAM OLARAK bu sabite eşit olmasını bekliyor
+        // (bkz. HomeWidgetPlugin.kt) — Intent.ACTION_VIEW kullanılırsa Dart tarafı
+        // widget'tan açıldığını hiç fark etmez, tıklama sessizce yok sayılır.
+        launchIntent.action = HomeWidgetLaunchIntent.HOME_WIDGET_LAUNCH_ACTION
         launchIntent.data = uri
         launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
 

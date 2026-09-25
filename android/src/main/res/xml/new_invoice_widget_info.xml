@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="180dp"
+    android:minHeight="60dp"
+    android:minResizeWidth="60dp"
+    android:minResizeHeight="60dp"
+    android:updatePeriodMillis="0"
+    android:resizeMode="horizontal"
+    android:initialLayout="@layout/new_invoice_widget"
+    android:widgetCategory="home_screen"
+    android:configure="io.github.kubrainy.sysmondax_widgets.NewInvoiceWidgetConfigActivity"
+    android:widgetFeatures="reconfigurable|configuration_optional"
+    android:label="@string/widget_new_invoice_label">
+</appwidget-provider>

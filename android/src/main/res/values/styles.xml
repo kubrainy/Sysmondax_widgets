@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Widget ayar ekranları (NewInvoiceWidgetConfigActivity /
+         NewDispatchWidgetConfigActivity) için: ekranın ortasında yüzen
+         (floating) küçük bir popup, kendi @drawable/widget_config_dialog_background
+         drawable'ımızı pencere arka planı yapıyoruz — bu drawable
+         @color/widget_surface kullanıyor, values-night ile telefonun
+         karanlık moduna göre otomatik değişiyor. -->
+    <style name="WidgetConfigTheme" parent="@android:style/Theme.DeviceDefault.Dialog.NoActionBar">
+        <item name="android:windowBackground">@drawable/widget_config_dialog_background</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="widget_surface">#FFFFFF</color>
+    <color name="widget_on_surface">#1A1D29</color>
+    <color name="widget_on_surface_variant">#757575</color>
+    <color name="widget_muted">#9E9E9E</color>
+    <color name="widget_divider">#EEEEEE</color>
+    <color name="widget_accent">#6C5CE7</color>
+    <color name="widget_negative">#C62828</color>
+    <color name="widget_negative_bg">#FFEBEE</color>
+    <color name="widget_positive">#2E7D32</color>
+    <color name="widget_warning">#F57C00</color>
+    <color name="widget_icon_badge_bg">#266C5CE7</color>
+    <color name="widget_plus_border">#EEEEEE</color>
+    <color name="widget_edge_accent">#666C5CE7</color>
+    <color name="widget_dispatch_accent">#2D7FF9</color>
+    <color name="widget_icon_badge_dispatch_bg">#262D7FF9</color>
+    <color name="widget_option_selected_bg">#F1EEFC</color>
+    <color name="widget_status_green_bg">#262E7D32</color>
+    <color name="widget_status_orange_bg">#26F57C00</color>
+    <color name="widget_status_red_bg">#26C62828</color>
+</resources>

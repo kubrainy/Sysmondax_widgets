@@ -1,0 +1,72 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="io.github.kubrainy.sysmondax_widgets">
+
+    <application>
+        <receiver android:name="io.github.kubrainy.sysmondax_widgets.CompanyBalanceWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_company_balance_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/company_balance_widget_info" />
+        </receiver>
+        <receiver android:name="io.github.kubrainy.sysmondax_widgets.DueInvoicesWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_due_invoices_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/due_invoices_widget_info" />
+        </receiver>
+        <receiver android:name="io.github.kubrainy.sysmondax_widgets.RecentTransactionsWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_recent_transactions_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/son_islemler_widget_info" />
+        </receiver>
+        <receiver android:name="io.github.kubrainy.sysmondax_widgets.NewInvoiceWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_new_invoice_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/new_invoice_widget_info" />
+        </receiver>
+        <activity
+            android:name="io.github.kubrainy.sysmondax_widgets.NewInvoiceWidgetConfigActivity"
+            android:exported="true"
+            android:theme="@style/WidgetConfigTheme">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+        <receiver android:name="io.github.kubrainy.sysmondax_widgets.NewDispatchWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_new_dispatch_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/new_dispatch_widget_info" />
+        </receiver>
+        <activity
+            android:name="io.github.kubrainy.sysmondax_widgets.NewDispatchWidgetConfigActivity"
+            android:exported="true"
+            android:theme="@style/WidgetConfigTheme">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

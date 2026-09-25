@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tüm shortcut widget'ların (Yeni Fatura Oluştur, Yeni İrsaliye Oluştur, ...)
+     "Düzenle" ekranı için ORTAK layout. Hangi widget'tan açılırsa açılsın
+     aynı dosya kullanılıyor, bu yüzden metin de belirli bir widget adına
+     değil genel olarak "kısayol" kavramına atıfta bulunuyor. Yeni bir
+     shortcut widget eklendiğinde onun config Activity'si de bu layout'u
+     kullanmalı, kendi kopyasını oluşturmamalı. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1x4 alanında ne gösterilsin?"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/widget_on_surface" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="18dp"
+        android:text="Bu kısayolun yanındaki alanda görünecek seçeneği belirle. İstediğin zaman widget'a uzun basıp Düzenle'ye tıklayarak tekrar değiştirebilirsin."
+        android:textSize="13sp"
+        android:textColor="@color/widget_on_surface_variant" />
+
+    <RadioGroup
+        android:id="@+id/config_direction_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/config_option_incoming"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/widget_option_row_background"
+            android:buttonTint="@color/widget_accent"
+            android:text="Gelen Faturaları Gör"
+            android:textSize="15sp"
+            android:textColor="@color/widget_on_surface"
+            android:padding="14dp" />
+
+        <RadioButton
+            android:id="@+id/config_option_outgoing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/widget_option_row_background"
+            android:buttonTint="@color/widget_accent"
+            android:text="Giden Faturaları Gör"
+            android:textSize="15sp"
+            android:textColor="@color/widget_on_surface"
+            android:padding="14dp" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/config_save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="20dp"
+        android:paddingStart="28dp"
+        android:paddingEnd="28dp"
+        android:background="@drawable/widget_button_primary"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:text="Kaydet" />
+
+</LinearLayout>

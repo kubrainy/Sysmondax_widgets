@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 4x2 sabit yerleşim boyutu: minWidth/minHeight aynı zamanda minResizeWidth/
+     minResizeHeight ile eşit verildiği için widget hiçbir yöne küçültülemez;
+     resizeMode="vertical" ile sadece dikey (aşağı/yukarı) tutamaçlar
+     gösteriliyor, yatay yeniden boyutlandırma tutamacı hiç çıkmıyor. -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="250dp"
+    android:minHeight="110dp"
+    android:minResizeWidth="250dp"
+    android:minResizeHeight="110dp"
+    android:maxResizeHeight="300dp"
+    android:updatePeriodMillis="1800000"
+    android:initialLayout="@layout/son_islemler_widget"
+    android:resizeMode="vertical"
+    android:widgetCategory="home_screen"
+    android:label="@string/widget_recent_transactions_label">
+</appwidget-provider>

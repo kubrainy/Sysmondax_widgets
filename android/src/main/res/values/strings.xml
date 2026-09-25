@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_due_invoices_label">Vadesi Yaklaşan Ödemeler</string>
+    <string name="widget_company_balance_label">Şirket Bakiyesi</string>
+    <string name="widget_new_invoice_label">Yeni Fatura Oluştur</string>
+    <string name="widget_new_dispatch_label">Yeni İrsaliye Oluştur</string>
+    <string name="widget_recent_transactions_label">Son İşlemler</string>
+</resources>

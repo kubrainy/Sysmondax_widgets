@@ -142,7 +142,7 @@ class CompanyBalanceWidgetProvider : HomeWidgetProvider() {
                 toggleIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
             )
-            setOnClickPendingIntent(R.id.balance_visibility_toggle, togglePendingIntent)
+            setOnClickPendingIntent(R.id.balance_visibility_toggle_hitarea, togglePendingIntent)
         }
 
         appWidgetManager.updateAppWidget(widgetId, views)

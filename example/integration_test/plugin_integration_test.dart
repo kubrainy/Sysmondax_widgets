@@ -14,11 +14,18 @@ import 'package:sysmondax_widgets/sysmondax_widgets.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('getPlatformVersion test', (WidgetTester tester) async {
-    final SysmondaxWidgets plugin = SysmondaxWidgets();
-    final String? version = await plugin.getPlatformVersion();
-    // The version string depends on the host platform running the test, so
-    // just assert that some non-empty string is returned.
-    expect(version?.isNotEmpty, true);
+  testWidgets('updateCompanyBalance cihazda hatasız çalışır ve veri okunabilir',
+      (WidgetTester tester) async {
+    await SysmondaxWidgets.setSelectedCompanyId('integration-test-company');
+    await SysmondaxWidgets.updateCompanyBalance(
+      companyName: 'Test A.Ş.',
+      debitText: '100,00',
+      creditText: '50,00',
+      cashText: '25,00',
+      currencySymbol: '₺',
+    );
+
+    final companyId = await SysmondaxWidgets.getSelectedCompanyId();
+    expect(companyId, 'integration-test-company');
   });
 }

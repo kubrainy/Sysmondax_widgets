@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/balance_widget_container"
-    android:orientation="vertical"
     android:background="@drawable/widget_background"
     android:padding="14dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,6 +39,7 @@
             android:id="@+id/balance_visibility_toggle"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_marginEnd="8dp"
             android:scaleType="center"
             android:src="@drawable/ic_eye_off" />
     </LinearLayout>
@@ -138,4 +143,20 @@
         android:textSize="11sp"
         android:textColor="@color/widget_muted" />
 
-</LinearLayout>
+    </LinearLayout>
+
+    <!-- Görünmez dokunma alanı: göz ikonunun üstüne, satır yüksekliklerini
+         değiştirmeden bindirilmiş büyük hit-area. LinearLayout akışının
+         dışında olduğu için diğer satırları itmez. Negatif marginTop/End,
+         konteynerin 14dp padding'ini iptal edip bu alanı widget'ın gerçek
+         sağ üst köşesine kadar uzatıyor — köşeye yapılan dokunuşlar artık
+         "uygulamayı aç"a değil buraya denk geliyor. -->
+    <ImageView
+        android:id="@+id/balance_visibility_toggle_hitarea"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="-14dp"
+        android:layout_marginEnd="-14dp"
+        android:layout_gravity="top|end" />
+
+</FrameLayout>

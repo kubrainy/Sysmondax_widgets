@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:sysmondax_widgets/sysmondax_widgets.dart';
 
 void main() {
@@ -16,34 +13,48 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _sysmondaxWidgetsPlugin = SysmondaxWidgets();
+  String _status = 'Widget verisi yazılıyor...';
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    _writeSampleWidgetData();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      platformVersion =
-          await _sysmondaxWidgetsPlugin.getPlatformVersion() ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
+  Future<void> _writeSampleWidgetData() async {
+    await SysmondaxWidgets.setSelectedCompanyId('demo-company');
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
+    await SysmondaxWidgets.updateCompanyBalance(
+      companyName: 'Demo Ticaret A.Ş.',
+      debitText: '1.234,56',
+      creditText: '789,00',
+      cashText: '2.000,00',
+      currencySymbol: '₺',
+    );
+
+    await SysmondaxWidgets.updateDueInvoices(
+      companyName: 'Demo Ticaret A.Ş.',
+      invoices: const [
+        DueInvoiceItem(name: 'ABC Ltd.', amountText: '1.200,00 ₺', dueDateText: '05.10.2026'),
+      ],
+    );
+
+    await SysmondaxWidgets.updateRecentTransactions(
+      companyName: 'Demo Ticaret A.Ş.',
+      transactions: const [
+        RecentTransactionItem(
+          name: 'ABC Ltd.',
+          amountText: '1.200,00 ₺',
+          dateText: '28.09.2026',
+          statusName: 'Gönderildi',
+          direction: 20,
+        ),
+      ],
+    );
+
     if (!mounted) return;
-
     setState(() {
-      _platformVersion = platformVersion;
+      _status = 'Widget verisi yazıldı. Ana ekrana widget ekleyip kontrol edin.';
     });
   }
 
@@ -51,8 +62,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text('Plugin example app')),
-        body: Center(child: Text('Running on: $_platformVersion\n')),
+        appBar: AppBar(title: const Text('sysmondax_widgets example')),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Text(_status, textAlign: TextAlign.center),
+          ),
+        ),
       ),
     );
   }

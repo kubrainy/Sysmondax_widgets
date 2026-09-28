@@ -2,6 +2,15 @@
   package="io.github.kubrainy.sysmondax_widgets">
 
     <application>
+        <!-- home_widget arka plan yenilemesi. WorkManager bu receiver ile
+             ev sahibi uygulamanın kayıtlı Dart callback'ini uyandırır. -->
+        <receiver
+            android:name="es.antonborri.home_widget.HomeWidgetBackgroundReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="es.antonborri.home_widget.action.BACKGROUND" />
+            </intent-filter>
+        </receiver>
         <receiver android:name="io.github.kubrainy.sysmondax_widgets.CompanyBalanceWidgetProvider"
             android:exported="true"
             android:label="@string/widget_company_balance_label">

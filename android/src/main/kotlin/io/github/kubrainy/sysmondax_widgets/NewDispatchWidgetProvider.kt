@@ -11,7 +11,7 @@ import es.antonborri.home_widget.HomeWidgetProvider
 
 /**
  * Sabit içerikli kısayol widget'ı: veri çekmez, periyodik yenileme yapmaz.
- * Tıklanınca ev sahibi uygulamayı `app://widget/newdispatch` URI'siyle açar;
+ * Tıklanınca ev sahibi uygulamayı `app://widget/outgoing-despatch-form-screen` URI'siyle açar;
  * ev sahibi uygulamanın kendi Flutter tarafı bu URI'yi görünce irsaliye
  * oluşturma ekranını açacak şekilde kablolanmalı (bkz. plugin README'si).
  *
@@ -29,9 +29,9 @@ import es.antonborri.home_widget.HomeWidgetProvider
 class NewDispatchWidgetProvider : HomeWidgetProvider() {
 
     companion object {
-        private val LAUNCH_URI: Uri = Uri.parse("app://widget/newdispatch")
-        private val INCOMING_INVOICES_URI: Uri = Uri.parse("app://widget/incominginvoices")
-        private val OUTGOING_INVOICES_URI: Uri = Uri.parse("app://widget/outgoinginvoices")
+        private val LAUNCH_URI: Uri = Uri.parse("app://widget/outgoing-despatch-form-screen")
+        private val INCOMING_INVOICES_URI: Uri = Uri.parse("app://widget/incoming-invoice-list")
+        private val OUTGOING_INVOICES_URI: Uri = Uri.parse("app://widget/outgoing-invoice-list")
         private const val SMALL_WIDTH_THRESHOLD_DP = 100
         private const val COMPACT_WIDTH_THRESHOLD_DP = 160
         // Yeni Fatura Oluştur widget'ında cihazda ölçülen değerlerle aynı

@@ -28,9 +28,11 @@ internal object SysmondaxWidgetsLaunch {
         launchIntent.data = uri
         launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
+        // Aynı request code tüm hedefleri ezer; URI başına ayrı kod tutulur.
+        val requestCode = uri?.toString()?.hashCode() ?: 0
         return PendingIntent.getActivity(
             context,
-            0,
+            requestCode,
             launchIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )

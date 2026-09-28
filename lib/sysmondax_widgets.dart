@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:home_widget/home_widget.dart';
 
 import 'src/models.dart';
@@ -15,6 +18,49 @@ export 'src/widget_updaters.dart' show dueInvoicesMaxItems, recentTransactionsMa
 class SysmondaxWidgets {
   SysmondaxWidgets._();
 
+  // Abonelik tutulmazsa tıklama dinleyicisi toplanabilir.
+  // ignore: unused_field
+  static StreamSubscription<Uri?>? _launches;
+  static bool _launchesBound = false;
+
+  static bool get isSupported => Platform.isAndroid;
+
+  /// WorkManager'ın uyandırdığı arka plan callback'ini kaydeder.
+  /// [callback] top-level olmalı ve `@pragma('vm:entry-point')` taşımalı.
+  static Future<void> registerBackgroundCallback(
+    Future<void> Function(Uri?) callback,
+  ) async {
+    if (!isSupported) return;
+    await HomeWidget.registerInteractivityCallback(callback);
+  }
+
+  /// Widget tıklamasıyla açılan URI'leri verir. Android dışında no-op.
+  static Future<void> bindLaunches(void Function(Uri uri) onLaunch) async {
+    if (!isSupported || _launchesBound) return;
+    _launchesBound = true;
+
+    final initial = await HomeWidget.initiallyLaunchedFromHomeWidget();
+    if (initial != null) onLaunch(initial);
+
+    _launches = HomeWidget.widgetClicked.listen((uri) {
+      if (uri != null) onLaunch(uri);
+    });
+  }
+
+  /// Widget verisini boşaltır. Çıkışta çağrılmalı.
+  static Future<void> clear() async {
+    if (!isSupported) return;
+    await updateCompanyBalance(
+      companyName: '',
+      debitText: '',
+      creditText: '',
+      cashText: '',
+      currencySymbol: '',
+    );
+    await updateDueInvoices(companyName: '', invoices: const []);
+    await updateRecentTransactions(companyName: '', transactions: const []);
+  }
+
   /// Widget'ların hangi şirkete ait veri gösterdiğini işaretlemek için
   /// kullanılan ortak anahtar. Widget tıklamaları (örn. "Gelen Faturaları
   /// Gör") ve arka plan yenileme akışı, hangi şirket için ekran/veri
@@ -24,13 +70,15 @@ class SysmondaxWidgets {
   /// Kullanıcı uygulama içinde aktif şirketi değiştirdiğinde (veya ilk
   /// girişte) çağrılmalı — widget'ların ve widget tıklama yönlendirmelerinin
   /// doğru şirketi bilmesi için gereklidir.
-  static Future<void> setSelectedCompanyId(String companyId) {
-    return HomeWidget.saveWidgetData<String>(selectedCompanyIdKey, companyId);
+  static Future<void> setSelectedCompanyId(String companyId) async {
+    if (!isSupported || companyId.isEmpty) return;
+    await HomeWidget.saveWidgetData<String>(selectedCompanyIdKey, companyId);
   }
 
   /// Arka planda çalışan yenileme kodunun (bkz. README > "Arka plan
   /// yenileme") hangi şirket için veri çekeceğini öğrenmek için kullanılır.
-  static Future<String?> getSelectedCompanyId() {
+  static Future<String?> getSelectedCompanyId() async {
+    if (!isSupported) return null;
     return HomeWidget.getWidgetData<String>(selectedCompanyIdKey);
   }
 
@@ -38,8 +86,9 @@ class SysmondaxWidgets {
   static Future<void> updateDueInvoices({
     required String companyName,
     required List<DueInvoiceItem> invoices,
-  }) {
-    return DueInvoicesWidget.update(companyName: companyName, invoices: invoices);
+  }) async {
+    if (!isSupported) return;
+    await DueInvoicesWidget.update(companyName: companyName, invoices: invoices);
   }
 
   /// "Şirket Bakiyesi" widget'ını verilen veriyle günceller. Alanlar zaten
@@ -50,8 +99,9 @@ class SysmondaxWidgets {
     required String creditText,
     required String cashText,
     required String currencySymbol,
-  }) {
-    return CompanyBalanceWidget.update(
+  }) async {
+    if (!isSupported) return;
+    await CompanyBalanceWidget.update(
       companyName: companyName,
       debitText: debitText,
       creditText: creditText,
@@ -64,8 +114,9 @@ class SysmondaxWidgets {
   static Future<void> updateRecentTransactions({
     required String companyName,
     required List<RecentTransactionItem> transactions,
-  }) {
-    return RecentTransactionsWidget.update(
+  }) async {
+    if (!isSupported) return;
+    await RecentTransactionsWidget.update(
       companyName: companyName,
       transactions: transactions,
     );
@@ -86,8 +137,26 @@ abstract final class SysmondaxWidgetUris {
 
   /// Kısayol widget'larına tıklanınca gönderilen, uygulamanın belirli bir
   /// ekranı açması gereken URI'ler.
-  static const String openNewInvoiceScreen = '/newinvoice';
-  static const String openNewDispatchScreen = '/newdispatch';
-  static const String openIncomingInvoicesScreen = '/incominginvoices';
-  static const String openOutgoingInvoicesScreen = '/outgoinginvoices';
+  static const String openNewInvoiceScreen = '/outgoing-invoice-form';
+  static const String openNewDispatchScreen = '/outgoing-despatch-form-screen';
+  static const String openIncomingInvoicesScreen = '/incoming-invoice-list';
+  static const String openOutgoingInvoicesScreen = '/outgoing-invoice-list';
+
+  static const Set<String> refreshPaths = {
+    dueInvoicesRefresh,
+    companyBalanceRefresh,
+    recentTransactionsRefresh,
+  };
+
+  static const Set<String> navigationPaths = {
+    openNewInvoiceScreen,
+    openNewDispatchScreen,
+    openIncomingInvoicesScreen,
+    openOutgoingInvoicesScreen,
+  };
+
+  static bool isRefresh(String? path) => path != null && refreshPaths.contains(path);
+
+  static bool isNavigation(String? path) =>
+      path != null && navigationPaths.contains(path);
 }
